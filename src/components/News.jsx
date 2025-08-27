@@ -25,7 +25,7 @@ export class News extends Component {
         "Indiana Fever star Caitlin Clark, the 2024 No. 1 WNBA draft pick, was introduced Monday as Nike's newest signature athlete, which entails the launch of a new signature logo, collection of sportswear and apparel -- and eventually a signature sneaker.",
       url: "https://www.espn.com/wnba/story/_/id/46075454/caitlin-clark-becomes-nike-newest-signature-athlete",
       urlToImage:
-        "https://a3.espncdn.com/combiner/i?img=%2Fphoto%2F2025%2F0826%2Fr1536800_1296x729_16%2D9.jpg",
+        "https://upload.wikimedia.org/wikipedia/en/thumb/4/41/Flag_of_India.svg/640px-Flag_of_India.svg.png",
       publishedAt: "2025-08-26T00:48:56Z",
       content:
         "Caitlin Clark has added a new distinction to her resume: Nike signature athlete.\r\nThe 2024 No. 1 WNBA draft pick was introduced Monday as the iconic brand's newest signature athlete, which entails th… [+2349 chars]",
@@ -98,44 +98,26 @@ export class News extends Component {
     super();
     console.log("Contructor in NewsComponent!");
     this.state = {
-        articles: this.articles,
-        loading: false
-    }
+      articles: this.articles,
+      loading: false,
+    };
   }
   render() {
     return (
       <div className="container my-3">
         <h1>NewsApp - Top Headlines</h1>
+
         <div className="row my-2">
-          <div className="col-md-3">
-            <NewsItem
-              title="TTITLEEEEEEEE"
-              description="DECRIPTIONNNNNN"
-              urlToImage="https://gfx.nrk.no/7kT5zGoE2E-GnUKLojH1PQ0I1Nze4Ypu8lxM-oBjubQw.jpg"
-              url="todo"
-            />
-          </div>
-          <div className="col-md-4">
-            <NewsItem
-              title="TTITLEEEEEEEE"
-              description="DECRIPTIONNNNNN"
-              urlToImage="https://gfx.nrk.no/7kT5zGoE2E-GnUKLojH1PQ0I1Nze4Ypu8lxM-oBjubQw.jpg"
-            />
-          </div>
-          <div className="col-md-4">
-            <NewsItem
-              title="TTITLEEEEEEEE"
-              description="DECRIPTIONNNNNN"
-              urlToImage="https://gfx.nrk.no/7kT5zGoE2E-GnUKLojH1PQ0I1Nze4Ypu8lxM-oBjubQw.jpg"
-            />
-          </div>
-          <div className="col-md-4">
-            <NewsItem
-              title="TTITLEEEEEEEE"
-              description="DECRIPTIONNNNNN"
-              urlToImage="https://gfx.nrk.no/7kT5zGoE2E-GnUKLojH1PQ0I1Nze4Ypu8lxM-oBjubQw.jpg"
-            />
-          </div>
+          {this.state.articles.map((element) => {
+            return (<div className="col-md-4" key={element.url}>
+              <NewsItem
+                url={element.url}
+                title={element.title.slice(0,40)}
+                description={element.description.slice(0,80) + "..."}
+                urlToImage={element.urlToImage}
+              />
+            </div>);
+          })}
         </div>
       </div>
     );
