@@ -9,7 +9,7 @@ export class Navbar extends Component {
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
           <div className="container-fluid">
             <a className="navbar-brand" href="/">
-              NewsApp
+            News<span style={{color: "hotpink"}} >App</span>
             </a>
             <button
               className="navbar-toggler"

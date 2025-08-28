@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import NewsItem from "./NewsItem";
+import Spinner from "./Spinner";
 
 export class News extends Component {
   static propTypes = {};
@@ -10,15 +11,16 @@ export class News extends Component {
       loading: true,
       page: 1,
       totalResults: 38,
+      pageSize: 9,
     };
   }
   async componentDidMount() {
-    let url =
-      "https://newsapi.org/v2/top-headlines?country=us&apiKey=029c82a6864640fa85c3e517520ee25e&page=" +
-      this.state.page;
+    let url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=029c82a6864640fa85c3e517520ee25e&page=${this.state.page}&pageSize=${this.props.pageSize}`;
+    this.setState({ loading: true });
     let data = await fetch(url);
     let parsedData = await data.json();
     console.log(parsedData);
+    this.setState({ loading: false });
     this.setState({
       articles: parsedData.articles,
       totalResults: parsedData.totalResults,
@@ -27,10 +29,12 @@ export class News extends Component {
   handlePreviousClick = async () => {
     let url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=029c82a6864640fa85c3e517520ee25e&page=${
       this.state.page - 1
-    }`;
+    }&pageSize=${this.props.pageSize}`;
+    this.setState({ loading: true });
     let data = await fetch(url);
     let parsedData = await data.json();
     console.log(parsedData);
+    this.setState({ loading: false });
     this.setState({
       articles: parsedData.articles,
     });
@@ -39,14 +43,20 @@ export class News extends Component {
     });
   };
   handleNextClick = async () => {
-    if ((this.state.page + 1) > Math.ceil(this.state.totalResults / 18)) {
+    if (
+      this.state.page + 1 >
+      Math.ceil(this.state.totalResults / this.props.pageSize)
+    ) {
     } else {
+      this.setState({ loading: true });
       let url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=029c82a6864640fa85c3e517520ee25e&page=${
         this.state.page + 1
-      }`;
+      }&pageSize=${this.props.pageSize}`;
+      this.setState({ loading: true });
       let data = await fetch(url);
       let parsedData = await data.json();
       console.log(parsedData + "in Next");
+      this.setState({ loading: false });
       this.setState({
         articles: parsedData.articles,
       });
@@ -58,10 +68,10 @@ export class News extends Component {
   render() {
     return (
       <div className="container my-3">
-        <h1 className="my-3">NewsApp - Top Headlines</h1>
-
+        <h1 className="my-3 text-center">News<span style={{color: "hotpink"}} >App</span> - Top Headlines</h1>
+        {this.state.loading && <Spinner />}
         <div className="row my-2">
-          {this.state.articles.map((element) => {
+          {!this.state.loading && this.state.articles.map((element) => {
             return (
               <div className="col-md-4" key={element.url}>
                 <NewsItem
@@ -89,7 +99,10 @@ export class News extends Component {
           </button>
           <h3>{this.state.page}</h3>
           <button
-          disabled={(this.state.page + 1) > Math.ceil(this.state.totalResults / 18)}
+            disabled={
+              this.state.page + 1 >
+              Math.ceil(this.state.totalResults / this.props.pageSize)
+            }
             type="button"
             className="btn btn-dark"
             onClick={this.handleNextClick}
