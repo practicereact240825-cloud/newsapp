@@ -93,6 +93,9 @@ export class News extends Component {
                       ? element.urlToImage
                       : "https://media.istockphoto.com/id/1311148884/vector/abstract-globe-background.jpg?s=612x612&w=0&k=20&c=9rVQfrUGNtR5Q0ygmuQ9jviVUfrnYHUHcfiwaH5-WFE="
                   }
+                  author={element.author}
+                  publishedAt={element.publishedAt}
+                  source={element.source}
                 />
               </div>
             );
