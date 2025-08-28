@@ -1,9 +1,19 @@
 import React, { Component } from "react";
 import NewsItem from "./NewsItem";
 import Spinner from "./Spinner";
+import PropTypes from 'prop-types';
 
 export class News extends Component {
-  static propTypes = {};
+  static propTypes = {
+    country : PropTypes.string,
+    category: PropTypes.string,
+    pageSize: PropTypes.number
+  };
+  static defaultProps = {
+    country : "us",
+    category: "general",
+    pageSize: 6
+  };
   constructor() {
     super();
     this.state = {
@@ -15,7 +25,7 @@ export class News extends Component {
     };
   }
   async componentDidMount() {
-    let url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=029c82a6864640fa85c3e517520ee25e&page=${this.state.page}&pageSize=${this.props.pageSize}`;
+    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&apiKey=029c82a6864640fa85c3e517520ee25e&category=${this.props.category}&page=${this.state.page}&pageSize=${this.props.pageSize}`;
     this.setState({ loading: true });
     let data = await fetch(url);
     let parsedData = await data.json();
@@ -114,5 +124,4 @@ export class News extends Component {
     );
   }
 }
-
 export default News;
