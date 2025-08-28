@@ -6,38 +6,39 @@ import { createBrowserRouter } from "react-router";
 import { RouterProvider } from "react-router/dom";
 import News from "./components/News.jsx"
 import Navbar from "./components/Navbar.jsx";
+const pageSize = 9;
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <> <Navbar /> <News pageSize={6}  key="general" country="us" category="general"/>, </>
+    element: <> <Navbar /> <News pageSize={pageSize}  key="general" country="us" category="general"/>, </>
   },
   {
     path: "/business",
-    element: <> <Navbar /> <News pageSize={6}  key="business" country="us" category="business" />, </>
+    element: <> <Navbar /> <News pageSize={pageSize}  key="business" country="us" category="business" />, </>
   },
   {
     path: "/entertainment",
-    element: <> <Navbar /> <News pageSize={6}  key="entertainment" country="us" category="entertainment" />, </>
+    element: <> <Navbar /> <News pageSize={pageSize}  key="entertainment" country="us" category="entertainment" />, </>
   },
   {
     path: "/general",
-    element: <> <Navbar /> <News pageSize={6}  key="general" country="us" category="general" />, </>
+    element: <> <Navbar /> <News pageSize={pageSize}  key="general" country="us" category="general" />, </>
   },
   {
     path: "/health",
-    element: <> <Navbar /> <News pageSize={6}  key="health" country="us" category="health" />, </>
+    element: <> <Navbar /> <News pageSize={pageSize}  key="health" country="us" category="health" />, </>
   },
   {
     path: "/science",
-    element: <> <Navbar /> <News pageSize={6}  key="science" country="us" category="science" />, </>
+    element: <> <Navbar /> <News pageSize={pageSize}  key="science" country="us" category="science" />, </>
   },
   {
     path: "/sports",
-    element: <> <Navbar /> <News pageSize={6}  key="sports" country="us" category="sports" />, </>
+    element: <> <Navbar /> <News pageSize={pageSize}  key="sports" country="us" category="sports" />, </>
   },
   {
     path: "/technology",
-    element: <> <Navbar /> <News pageSize={6}  key="technology" country="us" category="technology" />, </>
+    element: <> <Navbar /> <News pageSize={pageSize}  key="technology" country="us" category="technology" />, </>
   },
 ]);
 
