@@ -3,6 +3,7 @@ import NewsItem from "./NewsItem";
 import Spinner from "./Spinner";
 import PropTypes from "prop-types";
 import InfiniteScroll from "react-infinite-scroll-component";
+import LoadingBar from "react-top-loading-bar";
 
 export class News extends Component {
   static propTypes = {
@@ -23,6 +24,7 @@ export class News extends Component {
       page: 1,
       totalResults: 38,
       pageSize: 9,
+      progress: 0
     };
     document.title = `NewsApp - ${this.props.category
       .charAt(0)
@@ -30,12 +32,17 @@ export class News extends Component {
       1
     )} - Latest Breaking News, Live Updates, Trending Stories & Headlines 2025 | Global & Local News Coverage`;
   }
-  apiKey = "029c82a6864640fa85c3e517520ee25e";
-
+  apiKey = import.meta.env.VITE_APP_NEWS_API_KEY;
+setProgress = (set) => 
+{
+  this.setState({ progress: set})
+}
   fetchNews = async (page) => {
+    this.setProgress(25);
     let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&apiKey=${this.apiKey}&category=${this.props.category}&page=${page}&pageSize=${this.props.pageSize}`;
     this.setState({ loading: true });
     let data = await fetch(url);
+    this.setProgress(70)
     let parsedData = await data.json();
     this.setState({
       loading: false,
@@ -43,7 +50,8 @@ export class News extends Component {
       totalResults: parsedData.totalResults,
       page: page + 1,
       hasMore: true,
-    });
+    })
+    this.setProgress(100);
     console.log(parsedData);
   };
   async componentDidMount() {
@@ -96,6 +104,11 @@ export class News extends Component {
   render() {
     return (
       <>
+      <LoadingBar
+        color="#f11946"
+        progress={this.state.progress}
+        onLoaderFinished={() => setProgress(0)}
+      />
         <h1 className="my-3 text-center">
           News<span style={{ color: "red" }}>App</span> - Top Headlines on{" "}
           {this.props.category.charAt(0).toUpperCase()}

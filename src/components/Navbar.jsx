@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router";
+import LoadingBar from "react-top-loading-bar";
 export class Navbar extends Component {
   static propTypes = {};
 
