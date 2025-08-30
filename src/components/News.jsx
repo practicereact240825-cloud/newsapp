@@ -81,7 +81,7 @@ const News = (props) => {
         progress={progress}
         onLoaderFinished={() => setProgress(0)}
       />
-      <h1 className="my-3 text-center">
+      <h1 className=" text-center" style={{ marginTop: "70px" }}>
         News<span style={{ color: "red" }}>App</span> - Top Headlines on{" "}
         {props.category.charAt(0).toUpperCase()}
         {props.category.slice(1)}
